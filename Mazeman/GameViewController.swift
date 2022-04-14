@@ -5,6 +5,7 @@
 //  Created by H Huynh on 4/13/22.
 //
 
+
 import UIKit
 import SpriteKit
 import GameplayKit
@@ -16,14 +17,14 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = GameScene(size: self.view.bounds.size) as? GameScene {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene
                 view.presentScene(scene)
             }
-            
+            //view.showsPhysics = true
             view.ignoresSiblingOrder = true
             
             view.showsFPS = true
@@ -41,6 +42,11 @@ class GameViewController: UIViewController {
         } else {
             return .all
         }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
     }
 
     override var prefersStatusBarHidden: Bool {
