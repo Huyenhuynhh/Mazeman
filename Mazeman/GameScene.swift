@@ -10,10 +10,7 @@ import SpriteKit
 import GameplayKit
 import AVFoundation
 
-//- GAME Specifications:
 
-// IPad Pro 12.9-inch (1024/1366)
-// Grids for game: 16 * 9 (-top and bottom blocks)
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     
@@ -52,7 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     private let swipeDownRecog = UISwipeGestureRecognizer()
         
     //Vars
-    private var maxBlockCount = 15
+    private var maxBlockCount = 16
     private var grids: [[CGFloat]]! //Size
     private var energyIsZero = false
     private var threeHighestScores: [Int]!
@@ -71,13 +68,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     private var initialTimeIsInitialized = false
     
     //Sound vars
-    private let enemyBiteSoundPATH = Bundle.main.path(forResource: "bite", ofType: "wav") //1. PATH of file
-    private let eatFoodSoundPATH = Bundle.main.path(forResource: "eatfood", ofType: "mp3")
-    private let deathSoundPATH = Bundle.main.path(forResource: "death", ofType: "wav")
-    private let eatStarSoundPATH = Bundle.main.path(forResource: "eatstar", ofType: "mp3")
-    private let throwRockSoundPATH = Bundle.main.path(forResource: "rock", ofType: "mp3")
-    private let waterSoundPATH = Bundle.main.path(forResource: "water", ofType: "mp3")
-    private let fireSoundPATH = Bundle.main.path(forResource: "fire", ofType: "mp3")
+    private var enemyBiteSoundPATH = Bundle.main.path(forResource: "bite", ofType: "mp3") //1. PATH of file
+    private var eatFoodSoundPATH = Bundle.main.path(forResource: "eatfood", ofType: "mp3")
+    private var deathSoundPATH = Bundle.main.path(forResource: "death", ofType: "mp3")
+    private var eatStarSoundPATH = Bundle.main.path(forResource: "eatstar", ofType: "mp3")
+    private var throwRockSoundPATH = Bundle.main.path(forResource: "rock", ofType: "mp3")
+    private var waterSoundPATH = Bundle.main.path(forResource: "water", ofType: "mp3")
+    private var fireSoundPATH = Bundle.main.path(forResource: "fire", ofType: "mp3")
     
     private var soundURL: URL!//2. Make it into a URL form
     private var AUDIOPLAYER: AVAudioPlayer! //3. Create and Audio Player
@@ -114,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     private func initialBlocks() -> Bool
     {
         block = SKSpriteNode(imageNamed: "block")
-        block.size = CGSize(width: 85.375, height: 85.375)
+        block.size = CGSize(width: 68.375, height: 68.375)
         var i = CGFloat(0)
         var count = 0
         
@@ -132,9 +129,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             }
             
             let blockI = SKSpriteNode(imageNamed: imageName)
-            blockI.size = CGSize(width: 85.375, height: 85.375)
+            blockI.size = CGSize(width: 68.375, height: 68.375)
             blockI.position = CGPoint(x: block.frame.width/2 + i, y:block.frame.width/2)
-            blockI.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 83, height: 83))
+            blockI.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 68, height: 68))
             blockI.physicsBody?.affectedByGravity = false
             blockI.zPosition = 700
             blockI.physicsBody?.isDynamic = false
@@ -159,21 +156,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             case 0:
                 count += 1 //Start
                 STAR_PIC = SKSpriteNode(imageNamed: "star")
-                STAR_PIC.size = CGSize(width: 85.375, height: 85.375)
+                STAR_PIC.size = CGSize(width: 68.375, height: 68.375)
                 STAR_PIC.zPosition = 701
                 blockI.addChild(STAR_PIC)
                 
                 STAR_LBL = SKLabelNode(fontNamed: "Chalkduster") //INIT
                 STAR_LBL.color = SKColor.white
                 STAR_LBL.text = "\(SCORE)"
-                STAR_LBL.fontSize = 42
+                STAR_LBL.fontSize = 38
                 STAR_LBL.zPosition = 702
-                STAR_LBL.position = CGPoint(x: STAR_PIC.frame.midX, y: STAR_PIC.frame.midY-3)
+                STAR_LBL.position = CGPoint(x: STAR_PIC.frame.midX, y: STAR_PIC.frame.midY - 13)
                 STAR_PIC.addChild(STAR_LBL)
                 
             case 1:
                 ROCK_PIC = SKSpriteNode(imageNamed: "rock")
-                ROCK_PIC.size = CGSize(width: 85.375, height: 85.375)
+                ROCK_PIC.size = CGSize(width: 68.375, height: 68.375)
                 ROCK_PIC.zPosition = 701
                 blockI.addChild(ROCK_PIC)
                 
@@ -181,21 +178,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
                 ROCK_LBL.color = SKColor.white
                 ROCK_LBL.text = "\(ROCKS)"
                 ROCK_LBL.zPosition = 702
-                ROCK_LBL.fontSize = 42
+                ROCK_LBL.fontSize = 38
                 ROCK_LBL.position = CGPoint(x: ROCK_PIC.frame.midX, y: ROCK_PIC.frame.midY-3)
                 ROCK_PIC.addChild(ROCK_LBL)
                 
                 count += 1
             case 2:
                 HEART_PIC = SKSpriteNode(imageNamed: "heart")
-                HEART_PIC.size = CGSize(width: 85.375, height: 85.375)
+                HEART_PIC.size = CGSize(width: 68.375, height: 68.375)
                 HEART_PIC.zPosition = 701
                 blockI.addChild(HEART_PIC)
                 
                 HEART_LBL = SKLabelNode(fontNamed: "Chalkduster") //INIT
                 HEART_LBL.color = SKColor.white
                 HEART_LBL.text = "\(Int(HEARTS.rounded(.up)))"
-                HEART_LBL.fontSize = 42
+                HEART_LBL.fontSize = 38
                 HEART_LBL.zPosition = 702
                 HEART_LBL.position = CGPoint(x: HEART_PIC.frame.midX, y: HEART_PIC.frame.midY-3)
                 HEART_PIC.addChild(HEART_LBL)
@@ -222,9 +219,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             
             //Top Blocks (2 rows)
             let blockII = SKSpriteNode(imageNamed: "block")
-            blockII.size = CGSize(width: 85.375, height: 85.375)
-            blockII.position = CGPoint(x: block.frame.width/2 + i, y:1024-block.frame.width/2)
-            blockII.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 83, height: 83))
+            blockII.size = CGSize(width: 68.375, height: 68.375)
+            blockII.position = CGPoint(x: block.frame.width/2 + i, y:780-block.frame.width/2)
+            blockII.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 65, height: 65))
             blockII.physicsBody?.affectedByGravity = false
             blockII.physicsBody?.isDynamic = false
             blockII.physicsBody?.categoryBitMask = PhysicsCategoryStruct.block
@@ -235,9 +232,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             addChild(blockII)
             
             let blockIII = SKSpriteNode(imageNamed: "block")
-            blockIII.size = CGSize(width: 85.375, height: 85.375)
-            blockIII.position = CGPoint(x: block.frame.width/2 + i, y:1024-3*(block.frame.width)/2)
-            blockIII.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 83, height: 83))
+            blockIII.size = CGSize(width: 68.375, height: 68.375)
+            blockIII.position = CGPoint(x: block.frame.width/2 + i, y:780-3*(block.frame.width)/2)
+            blockIII.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 65, height: 65))
             blockIII.physicsBody?.affectedByGravity = false
             blockIII.physicsBody?.isDynamic = false
             blockIII.physicsBody?.categoryBitMask = PhysicsCategoryStruct.block
@@ -255,6 +252,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     //2- ADDING SPRITE NODES + INIT
     private func INIT() -> Bool
     {
+        
         //1. One instance of each enemy type (5 types) is added to the game at the beginning, a new one of the same type each time on is killed after [1-5] seconds
         
         addCaveMan()
@@ -322,13 +320,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             }
             
             gravityTimeCounter += 1
-            //print ("Gravity time = \(gravityTimeCounter)") //Debug
+        
             if(gravityTimeCounter == 40)
             {
                 rand_gravity_time_in_range = Int(arc4random_uniform(21) + 40) //(B - A  + 1) + A -> [A - B]
                 
                 updateGreenGameStatusPanel(message: "WARNING: Gravity will be enabled in \(rand_gravity_time_in_range - gravityTimeCounter) seconds...", color: .red)
-                //print ("! -> = Gravity will be enabled at time = \(rand_gravity_time_in_range)") //Debug
+               
             }
             
             //Gravity enabled for 1 second after every random time in range [40-60]
@@ -340,7 +338,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             if (gravityTimeCounter == rand_gravity_time_in_range + 1)
             {
                 updateGreenGameStatusPanel(message: "GRAVITY DISABELED", color: .white)
-                //print ("GRAVITY DISABELED") //Debug
+              
                 disableGravityCaveman()
                 gravityTimeCounter = 0 //RESET
             }
@@ -400,7 +398,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         else if (HEARTS <= 0)
         {
             HEART_LBL.text = "\(0)"
-            print("GAMEU OVER") //DEBUG
+            print("GAME OVER") //DEBUG
             caveman.removeFromParent()
             gameOver(won: false)
         }
@@ -411,8 +409,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     {
         //1- Add green Panel
         panel = SKSpriteNode(imageNamed: "game-status-panel")
-        panel.size = CGSize(width: 966, height: 95)
-        panel.position = CGPoint(x: 683, y:1024-block.frame.width+6)
+        panel.size = CGSize(width: 750, height: 68)
+        panel.position = CGPoint(x: 500, y:768-block.frame.width+6)
         panel.name = "panel"
         panel.zPosition = 710
         addChild(panel)
@@ -466,10 +464,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let location_touch = touches.first?.location(in: self.view) //To be converted
         {
-            //print("UIView touch: \(location_touch)") //DEBUG
-            let location_touch_converted_SK = CGPoint(x: location_touch.x, y: 1024-location_touch.y)
-            //print ("SKView touch: SHOOOOOOT THERE ---> \(location_touch_converted_SK)") //DEBUG
-            //LOCATION IS IN UIKIT (0,0) Upper corner coordinates
+            
+            let location_touch_converted_SK = CGPoint(x: location_touch.x, y: 750-location_touch.y)
+          
             
             let throwrock = SKAction.run
             {
@@ -523,12 +520,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         ipad_edge_left.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height:self.frame.height * 2))
         ipad_edge_left.physicsBody?.isDynamic = false
         ipad_edge_left.physicsBody?.categoryBitMask = PhysicsCategoryStruct.ipad_edge_left
-       
+        //ipad_edge_left.color = UIColor.green
         ipad_edge_left.name = "ipad_edge_left"
         addChild(ipad_edge_left)
         
         ipad_edge_right = SKSpriteNode()
-        ipad_edge_right.position = CGPoint(x: 1366, y: 0)
+        ipad_edge_right.position = CGPoint(x: 1024, y: 0)
         ipad_edge_right.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height:self.frame.height * 2))
         ipad_edge_right.physicsBody?.isDynamic = false
         ipad_edge_right.physicsBody?.categoryBitMask = PhysicsCategoryStruct.ipad_edge_right
@@ -540,12 +537,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     private func addCaveMan()
     {
         caveman = SKSpriteNode(imageNamed: "caveman")
-        caveman.size = CGSize(width: 85.375, height: 85.375)
+        caveman.size = CGSize(width: 68.375, height: 68.375)
         caveman.position = CGPoint(x: block.frame.width + block.frame.width/2, y: block.frame.height+block.frame.height/2)
         
         grids.append([1,1])
         caveman.zPosition = 700
-        caveman.physicsBody = SKPhysicsBody(circleOfRadius: (caveman.frame.width - 8)/2)
+        caveman.physicsBody = SKPhysicsBody(circleOfRadius: (caveman.frame.width - 10)/2)
         caveman.physicsBody?.affectedByGravity = false
         caveman.physicsBody?.allowsRotation = false
         caveman.physicsBody?.isDynamic = true //True enabled collision (why?)
@@ -640,10 +637,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         //2- Behavior: move up and down, wait randomly [1-3] seconds
         let rand_waiting_time = arc4random_uniform(3) + 1 //[1-3]
         
-        let move_up = SKAction.move(by: CGVector(dx: 0, dy: 765), duration: 9)
+        let move_up = SKAction.move(by: CGVector(dx: 0, dy: 768), duration: 9)
         move_up.timingMode = .easeIn
         let wait = SKAction.wait(forDuration: TimeInterval(rand_waiting_time))
-        let move_down = SKAction.move(by: CGVector(dx: 0, dy: -765), duration: 10)
+        let move_down = SKAction.move(by: CGVector(dx: 0, dy: -768), duration: 10)
         let sequence = SKAction.sequence([move_up, wait, move_down, wait])
         let updown = SKAction.repeatForever(sequence)
         dino1.run(updown)
@@ -672,9 +669,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         //2- Behavior: move right and left, wait randomly [1-3] seconds. Facing direction changes accordingly.
         let rand_waiting_time = arc4random_uniform(3) + 1 //[1-3]
         
-        let move_left = SKAction.move(by: CGVector(dx: -1355, dy: 0), duration: 8)
+        let move_left = SKAction.move(by: CGVector(dx: -1050, dy: 0), duration: 8)
         let wait = SKAction.wait(forDuration: TimeInterval(rand_waiting_time))
-        let move_right = SKAction.move(by: CGVector(dx: 1355, dy: 0), duration: 10)
+        let move_right = SKAction.move(by: CGVector(dx: 1050, dy: 0), duration: 10)
         
         let mirror = SKAction.scaleX(to: -1, duration: 0)
         let mirror2 = SKAction.scaleX(to: 1, duration: 0)
@@ -688,7 +685,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         //1- //Upper left corner, facing right
         dino3 = SKSpriteNode(imageNamed: "dino3")
         dino3.size = CGSize(width: 75, height: 75)
-        dino3.position = CGPoint(x: dino3.frame.width/2, y:dino3.frame.width/2 + 9 * dino3.frame.width)
+        dino3.position = CGPoint(x: dino3.frame.width/2, y:dino3.frame.width/2 + 6 * dino3.frame.width)
         dino3.zPosition = 700
         
         addChild(dino3)
@@ -924,7 +921,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         dino3.removeAllActions()
         let rand_direction = arc4random_uniform(4) //[0-3]: 4 possibilities
         
-        //let mirrorX = SKAction.scaleX(to: -1, duration: 0)
+        
         let move_with_direction: SKAction
         var mirrorx: SKAction
         var scale = CGFloat(0)
@@ -934,26 +931,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         case 0: //Left
             if (dino3.xScale == 1 || dino3.xScale == 0) { scale = -1 } else { scale = dino3.xScale }
             mirrorx = SKAction.scaleX(to: CGFloat(scale), duration: 0)
-            
             move_with_direction = SKAction.moveBy(x: 128, y: 0, duration: 1)
         case 1: //Right
             if (dino3.xScale == -1 || dino3.xScale == 0) { scale = 1 } else { scale = dino3.xScale }
             mirrorx = SKAction.scaleX(to: scale, duration: 0)
-            
             move_with_direction = SKAction.moveBy(x: -128, y: 0, duration: 1)
         case 2: //up
             if (dino3.yScale == -1 || dino3.yScale == 0) { scale = 1 } else { scale = dino3.yScale }
             mirrorx = SKAction.scaleX(to: scale, duration: 0)
-            
+
             move_with_direction = SKAction.moveBy(x: 0, y: 128, duration: 1)
         case 3: //down
             if (dino3.yScale == 1 || dino3.yScale == 0) { scale = -1 } else { scale = dino3.yScale }
             mirrorx = SKAction.scaleX(to: scale, duration: 0)
-            
+
             move_with_direction = SKAction.moveBy(x: 0, y: -128, duration: 1)
         default:
             if (dino3.xScale == 1 || dino3.xScale == 0) { scale = -1 } else { scale = dino3.xScale }
             mirrorx = SKAction.scaleX(to: scale, duration: 0)
+
             move_with_direction = SKAction.moveBy(x: 128, y: 0, duration: 1)
         }
         dino3.run(mirrorx)
@@ -968,7 +964,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         gridX = gridX.rounded(.up)
         gridY = gridY.rounded(.up)
         
-        grids.remove(at: indexOfElementInGrids(x: UInt32(gridX), y: UInt32(gridY)))
+        if(indexOfElementInGrids(x: UInt32(gridX), y: UInt32(gridY)) != -1){
+            grids.remove(at: indexOfElementInGrids(x: UInt32(gridX), y: UInt32(gridY)))
+        }
+        else if(indexOfElementInGrids(x: UInt32(gridX-1), y: UInt32(gridY)) != -1){
+            grids.remove(at: indexOfElementInGrids(x: UInt32(gridX-1), y: UInt32(gridY)))
+        }
+        else if(indexOfElementInGrids(x: UInt32(gridX+1), y: UInt32(gridY)) != -1){
+            grids.remove(at: indexOfElementInGrids(x: UInt32(gridX+1), y: UInt32(gridY)))
+        }
+        
         
         star.removeFromParent() //1. Remove old star
         
@@ -990,7 +995,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         gridX = gridX.rounded(.up)
         gridY = gridY.rounded(.up)
         
-        grids.remove(at: indexOfElementInGrids(x: UInt32(gridX), y: UInt32(gridY)))
+        if(indexOfElementInGrids(x: UInt32(gridX), y: UInt32(gridY)) != -1){
+            grids.remove(at: indexOfElementInGrids(x: UInt32(gridX), y: UInt32(gridY)))
+        }
+        else if(indexOfElementInGrids(x: UInt32(gridX-1), y: UInt32(gridY)) != -1){
+            grids.remove(at: indexOfElementInGrids(x: UInt32(gridX-1), y: UInt32(gridY)))
+        }
+        else if(indexOfElementInGrids(x: UInt32(gridX+1), y: UInt32(gridY)) != -1){
+            grids.remove(at: indexOfElementInGrids(x: UInt32(gridX+1), y: UInt32(gridY)))
+        }
+        
         
         food.removeFromParent() //1. Remove old star
 
@@ -1029,10 +1043,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     {
         //1- Entry point: Upper left corner, facing right
         dino4 = SKSpriteNode(imageNamed: "dino4")
-        dino4.size = CGSize(width: 85.375, height: 85.375)
-        dino4.position = CGPoint(x: dino4.frame.width/2 /*starting point*/, y: 1024 - (3*block.frame.height)/2)
+        dino4.size = CGSize(width: 68.375, height: 68.375)
+        dino4.position = CGPoint(x: dino4.frame.width/2 /*starting point*/, y: 775 - (3*block.frame.height)/2)
         dino4.zPosition = 730
-        dino4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 85.375, height: 85.375))
+        dino4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 68.375, height: 68.375))
         dino4.physicsBody?.affectedByGravity = false
         dino4.physicsBody?.isDynamic = false
         
@@ -1040,8 +1054,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         
         //2- Behavior: LEFT-RIGHT, fires each [5-10] sec.
         let wait = SKAction.wait(forDuration: TimeInterval(3))
-        let move_left = SKAction.move(to: CGPoint(x: 0, y: 1024 - (3*block.frame.height)/2), duration: 8)
-        let move_right = SKAction.move(to: CGPoint(x: 1330, y: 1024 - (3*block.frame.height)/2), duration: 8)
+        let move_left = SKAction.move(to: CGPoint(x: 0, y: 775 - (3*block.frame.height)/2), duration: 8)
+        let move_right = SKAction.move(to: CGPoint(x: 1000, y: 775 - (3*block.frame.height)/2), duration: 8)
         
         let sequence_dino_move = SKAction.sequence([wait, move_right, wait, move_left])
         let rightleft = SKAction.repeatForever(sequence_dino_move)
@@ -1070,7 +1084,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         Vec_dx = Vec_dx/VecMagnitude
         Vec_dy = Vec_dy/VecMagnitude
         
-        let vector = CGVector(dx: 50.0 * Vec_dx, dy: 50.0 * Vec_dy)
+        let vector = CGVector(dx: 30.0 * Vec_dx, dy: 30.0 * Vec_dy)
         fire.physicsBody?.applyImpulse(vector)
         
         soundURL = URL(fileURLWithPath: self.fireSoundPATH!) //Make it a URL
@@ -1082,7 +1096,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     {
         var fire: SKSpriteNode!
         fire = SKSpriteNode(imageNamed: "fire")
-        fire.size = CGSize(width: 78, height: 78)
+        fire.size = CGSize(width: 58, height: 58)
         fire.position = CGPoint(x: dino4.position.x, y: dino4.position.y - 50)
         fire.zPosition = 709
         fire.name = "fire"
@@ -1092,6 +1106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         fire.physicsBody?.collisionBitMask = PhysicsCategoryStruct.caveman
         fire.physicsBody?.affectedByGravity = false
         fire.physicsBody?.isDynamic = true
+        
         return fire
     }
     
@@ -1099,7 +1114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     {
         if let name = enemy.name
         {
-            // print ("Rock killed: '\(name)'") //DEBUG
+           
             enemy.removeFromParent() //1. Enemy Killed
             
             let wait_before_enemy_reappears = SKAction.wait(forDuration: TimeInterval(arc4random_uniform(6) + 1)) //2. Wait [1-5] seconds
@@ -1136,9 +1151,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             grids.append([CGFloat(rand_grid_x), CGFloat(rand_grid_y)])
             
             block = SKSpriteNode(imageNamed: "block")
-            block.size = CGSize(width: 85.375, height: 85.375)
+            block.size = CGSize(width: 68.375, height: 68.375)
             block.position = CGPoint(x: block.frame.width/2 + CGFloat(rand_grid_x)*block.frame.width, y:block.frame.width/2 + CGFloat(rand_grid_y) * block.frame.width)
-            block.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 83, height: 83))
+            block.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 65, height: 65))
             block.physicsBody?.affectedByGravity = false
             block.physicsBody?.isDynamic = false
             block.name = "block"
@@ -1164,8 +1179,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
         } while (indexOfElementInGrids(x: rand_grid_y, y: rand_grid_y) > -1)
         
         grids.append([CGFloat(rand_grid_x), CGFloat(rand_grid_y)])
+        print([CGFloat(rand_grid_x), CGFloat(rand_grid_y)])
         
-        star.size = CGSize(width: 85.375, height: 85.375)
+        star.size = CGSize(width: 68.375, height: 68.375)
         //INFO: y = block.frame.width/2 + CGFloat(rand_grid_y) * block.frame.width (rand_grid_y numbers of blocks = grid)
         star.position = CGPoint(x: block.frame.width/2 + CGFloat(rand_grid_x)*block.frame.width, y: block.frame.width/2 + CGFloat(rand_grid_y) * block.frame.width)
         star.zPosition = 700
@@ -1189,9 +1205,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
             rand_grid_y  = arc4random_uniform(9) + 1
         } while (indexOfElementInGrids(x: rand_grid_x, y: rand_grid_y) > -1)
 
-        grids.append([CGFloat(rand_grid_x), CGFloat(rand_grid_y)]) //호랑수월가
+        grids.append([CGFloat(rand_grid_x), CGFloat(rand_grid_y)])
         
-        food.size = CGSize(width: 85.375, height: 85.375)
+        food.size = CGSize(width: 68.375, height: 68.375)
         food.position = CGPoint(x: block.frame.width/2 + CGFloat(rand_grid_x)*block.frame.width, y: block.frame.width/2 + CGFloat(rand_grid_y) * block.frame.width)
         
         food.zPosition = 780
