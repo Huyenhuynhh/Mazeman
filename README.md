@@ -66,7 +66,7 @@ A instance of each enemy type is added to the game at the beginning. Enemies can
 To clone and run this repository, you'll need to have Xcode installed on your system. From the terminal, run the following commands:
 
 ```
-$ git clone https://github.com/huhu72/Mazeman-Game.git
+$ git clone [https://github.com/huhu72/Mazeman-Game.git](https://github.com/Huyenhuynhh/Mazeman.git)
 $ cd Mazeman-Game
 $ open Mazeman-Game.xcodeproj
 ```
